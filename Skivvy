@@ -1,0 +1,346 @@
+
+import pyttsx3 
+import speech_recognition as sr 
+import datetime
+import wikipedia
+import webbrowser
+import os
+import subprocess
+#import smtplib 
+from playsound import playsound
+#from multiprocessing import Process
+import keyboard
+import time
+import pyautogui
+#from Skivvyui import Ui_Skivvy
+#from PyQt5 import QtGui,QtCore,QtWidgets
+#from PyQt5.QtGui import *
+#from PyQt5.QtGui import QMovie
+#from PyQt5.QtWidgets import *
+#from PyQt5.QtCore import *
+#from PyQt5 import uic, QtWidgets
+#from PyQt5 .uic import loadUiType
+
+#import sys
+
+def intro():
+    
+    print('Loading your  personal assistant - Skivvy') 
+    speak('Loading your  personal assistant - Skivvy')  
+
+engine = pyttsx3.init('sapi5')
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[1].id)
+
+ 
+def speak(audio):
+    engine.say(audio)
+    engine.runAndWait()
+    
+def wishMe():
+    
+    hour = int(datetime.datetime.now().hour)
+    if hour>=0 and hour<12:
+        speak("Good Morning!")
+ 
+    elif hour>=12 and hour<18:
+        speak("Good Afternoon!")   
+ 
+    else:
+        speak("Good Evening!") 
+
+        
+    speak("I am Online and ready sir.")   
+    speak("How can i help you.") 
+    
+def takeCommand():
+    #It takes microphone input from the user and returns string output
+ r=sr.Recognizer()
+ with sr.Microphone() as source:
+        print("Listening...")
+        audio=r.listen(source)
+
+        try:
+            statement=r.recognize_google(audio,language='en-in')
+            print("Recognizing")
+            print(f"{statement}\n")
+            #speak(f"{statement}\n")
+        except Exception as e:
+            speak("Pardon me, please say that again")
+            return "None"
+        return statement
+    
+def wakeup_command():
+ r=sr.Recognizer()
+ with sr.Microphone() as source:
+        #print("Listening...")
+        audio=r.listen(source)
+
+        try:
+            statement=r.recognize_google(audio,language='en-in')
+            #print("Recognizing")
+            print(f"{statement}\n")
+           #speak(f"ok sir:{statement}\n")
+        except Exception as e:
+            #speak("Pardon me, please say that again")
+            return "None"
+        return statement
+def wakeup():
+    
+ while True: 
+      
+  wakeup= wakeup_command()
+  
+  if "wake up" in wakeup:
+      os.startfile("C:\\Users\\nites\\Desktop\\Project\\dist\\Skivvy\\Skivvy.exe")
+  
+  elif "goodbye" in wakeup:
+     os.system("TASKKILL /F /IM Skivvy.exe") 
+     break
+       
+    
+def commands():
+   
+    def open():
+     speak(" wait a second sir")
+        
+     if 'word' in query:
+      os.startfile("C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Word")
+    
+     elif 'spotify' in query:
+      os.system("Spotify")
+    
+     elif 'excel' in query:
+      os.startfile("Excel")
+     
+     elif 'powerpoint' in query:
+      os.startfile("C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Powerpoint")
+     
+     elif 'chrome' in query:
+      os.startfile("chrome.exe") 
+      
+     elif 'setting' in query:
+      os.startfile("control.exe") 
+      
+     elif 'google' in query:
+      webbrowser.open("google.com")
+     
+     elif " facebook" in query:
+        webbrowser.open("https://www.facebook.com/")
+    
+     elif "instagram" in query:
+        webbrowser.open("https://www.instagram.com/?hl=en")
+    
+     elif "whatsapp" in query:
+        webbrowser.open("https://web.whatsapp.com/") 
+    
+     elif "gmail" in query:
+        webbrowser.open("http://mail.google.com/mail/")     
+           
+ 
+    def close():
+      speak("Wait a second sir")
+   
+      if 'excel' in query:
+         os.system("TASKKILL /F /IM EXCEL.EXE")        
+      
+      elif 'word' in query: 
+         os.system("TASKKILL /F /IM WINWORD.exe")
+      
+      elif 'spotify' in query: 
+         os.system("TASKKILL /F /IM spotify.exe")
+      
+      elif 'chrome' in query: 
+         os.system("TASKKILL /F /IM chrome.exe")
+      
+      elif 'powerpoint' in query: 
+         os.system("TASKKILL /F /IM POWERPNT.exe")   
+      
+      
+        
+         
+    while True:
+          # Logic for executing tasks based on query
+         query = takeCommand().lower()
+         if query==0:
+          continue
+         
+         elif 'hello' in query or 'hi' in query:  
+             speak("Hello Sir")
+             print("Hello Sir")
+    
+         elif "who made you" in  query or "who created you" in  query or "who discovered you" in  query:
+             speak("I was built by Nitesh Saini")
+             print("I was built by Nitesh Saini")
+         
+         elif "tell me about you" in query:
+             print("My name is Skivvy, a 'A''I' virtual assistant.I was build by Mr Nitesh Saini.I am built by using pyhton language")
+             speak("My name is Skivvy.")
+             speak("A 'A I' virtual assistant.")
+             speak("I was build by Mr Nitesh Saini.")
+             speak("I am built by using pyhton language")
+         
+         elif 'tell my roll number' in query:
+             speak("Your class roll number is 21150")
+             print("Your class roll number is 21150")  
+  
+         elif 'remind my mobile number' in query:      
+             speak("Your personal moblie number is 9034370345")
+             print("Your personal moblie number is 9034370345")
+ 
+
+         elif  "take some rest" in query:
+             speak('ok sir any time you call me i am available in your service')
+             print('ok sir any time you call me i am available in your service')
+             break
+                   
+             
+
+         elif 'wikipedia' in query:
+            speak('Searching Wikipedia...')
+            print('Searching Wikipedia...')
+            query = query.replace("wikipedia", "")
+            results = wikipedia.summary(query, sentences=2)
+            speak("According to Wikipedia")
+            print(results)
+            speak(results)
+            continue
+ 
+        
+  
+         elif 'open google' in query:
+            open()
+            
+         elif "search on google" in query:
+          speak("sir what you want to search on google")
+          search = takeCommand().lower()
+          webbrowser.open(f"{search}")
+         
+         elif 'search on youtube' in query:
+            speak('this is what i found')
+            
+            query = query.replace("search on youtube", "")
+            web ='https://www.youtube.com/results?search_query=' + query
+            webbrowser.open(web)
+             
+         
+         elif 'open website' in query :
+            speak('ok lunching.....')
+            print('ok lunching.....')
+            query = query.replace("open website ","")
+            webbrowser.open('https://www.'+ query +'.com')
+             
+         elif 'news' in query :
+            news = webbrowser.open_new_tab("https://timesofindia.indiatimes.com/home/headlines")
+            speak('Here are some headlines from the Times of India,Happy reading')
+            
+         elif 'open spotify' in query:
+          open()
+          
+         elif 'open word' in query:
+           open()
+         
+         elif 'open excel' in query:
+             open()
+         
+         elif 'open powerpoint' in query:
+             open()
+
+         elif 'open chrome' in query:
+             open()  
+        
+         elif " facebook" in query:
+             open()
+    
+         elif "instagram" in query:
+             open()
+    
+         elif "whatsapp" in query:
+             open() 
+    
+         elif "gmail" in query:
+             open()
+         
+         elif "open setting" in query:
+             open()      
+           
+         elif 'close excel' in query:
+             close()
+         
+         elif 'close word' in query: 
+             close()
+           
+         elif 'close powerpoint' in query:
+             close()
+        
+         elif 'close chrome' in query:
+             close() 
+          
+         elif 'close spotify' in query:
+              close()    
+          
+         elif 'play music' in query:
+            music_dir = 'C:\\Users\\nites\\Desktop\\st'
+            songs = os.listdir(music_dir)
+            print(songs)    
+            os.startfile(os.path.join(music_dir, songs[0]))
+            
+             
+         elif 'the time' in query:
+            strTime = datetime.datetime.now().strftime("%H:%M:%S")    
+            speak(f"Sir, the time is {strTime}")
+            
+         elif 'take screenshot' in query:
+             ss=pyautogui.screenshot()
+             ss.save('C:\\Users\\nites\\OneDrive\\Pictures\\Screenshots\\1.png')
+         
+        
+         elif "shutdown" in query:
+             speak("Ok , your pc will log off in 10 sec make sure you exit from all applications")
+             subprocess.call(["shutdown", "/p"])
+              
+ 
+         elif "restart" in query :
+             speak("Ok , your pc will restart in 10 sec make sure you exit from all applications")           
+             subprocess.call(["shutdown", "/r"])
+        
+         elif "open new tab" in query:
+             keyboard.press_and_release('ctrl+t')
+             
+         elif "open new window" in query:
+             keyboard.press_and_release('ctrl+n')
+              
+         elif "close tab" in query:
+             keyboard.press_and_release('ctrl+w')
+         
+         elif "open history" in query:
+             keyboard.press_and_release('ctrl+h') 
+
+         elif "reload" in query:
+             keyboard.press_and_release('ctrl+r')
+           
+         elif "add to bookmark" in query:
+             keyboard.press_and_release('ctrl+d')  
+             
+         elif "open download folder" in query:
+             keyboard.press_and_release('ctrl+j')
+          
+         elif "copy " in query:
+             keyboard.press_and_release("ctrl+c") 
+              
+         elif "cut " in query:
+            keyboard.press_and_release("ctrl+x") 
+                      
+         elif "paste " in query:
+            keyboard.press_and_release("ctrl+v")  
+             
+         elif "open task manager" in query:
+              keyboard.press_and_release("ctrl+shift+esc")
+             
+                 
+if __name__ == "__main__":
+  
+    intro()
+    wishMe()
+    commands()
+    wakeup()

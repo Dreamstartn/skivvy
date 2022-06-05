@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import Skivvy as skivvy
+# import Skivvy as skivvy
 
 
 class Ui_MainWindow(object):
@@ -74,7 +74,7 @@ class Ui_MainWindow(object):
 
     def start_clicked(self):
         print("Start clicked")
-        # call your logic here
+        # call your logic here like skivvy.commands()
 
     def exit_clicked(self):
         print("Exit clicked")
@@ -89,4 +89,5 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
+    # call intro here
     sys.exit(app.exec_())

@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import Skivvy as skivvy
 
 
 class Ui_MainWindow(object):
@@ -37,15 +38,17 @@ class Ui_MainWindow(object):
         self.start = QtWidgets.QPushButton(self.centralwidget)
         self.start.setGeometry(QtCore.QRect(200, 440, 121, 51))
         self.start.setStyleSheet("background-color: rgb(0, 0, 236);\n"
-"font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: rgb(255, 255, 255);")
+                                 "font: 75 24pt \"MS Shell Dlg 2\";\n"
+                                 "color: rgb(255, 255, 255);")
         self.start.setObjectName("start")
+        self.start.clicked.connect(self.start_clicked)
         self.exit = QtWidgets.QPushButton(self.centralwidget)
         self.exit.setGeometry(QtCore.QRect(650, 440, 121, 51))
         self.exit.setStyleSheet("background-color: rgb(0, 0, 236);\n"
-"font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: rgb(255, 255, 255);")
+                                "font: 75 24pt \"MS Shell Dlg 2\";\n"
+                                "color: rgb(255, 255, 255);")
         self.exit.setObjectName("exit")
+        self.exit.clicked.connect(self.exit_clicked)
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
         self.label_4.setGeometry(QtCore.QRect(850, 10, 131, 131))
         self.label_4.setText("")
@@ -68,6 +71,15 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.start.setText(_translate("MainWindow", "START"))
         self.exit.setText(_translate("MainWindow", "EXIT"))
+
+    def start_clicked(self):
+        print("Start clicked")
+        # call your logic here
+
+    def exit_clicked(self):
+        print("Exit clicked")
+        # this will end the program
+        exit()
 
 
 if __name__ == "__main__":
